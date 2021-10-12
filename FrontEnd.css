@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+HTML body {
+	font-family: 'Quicksand', sans-serif;
+	scroll-behavior: smooth;
+}
+.new-nav {
+	display: flex;
+	align-items: center;
+	background-color: white;
+	color: black;
+	transition: background 0.5s ease-out;
+}
