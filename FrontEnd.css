@@ -11,3 +11,7 @@ HTML body {
 	background-color: white;
 	color: black;
 }
+.nav-item {
+	padding-left: 20px;
+	padding-right: 20px;
+}
