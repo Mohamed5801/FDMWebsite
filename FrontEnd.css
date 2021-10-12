@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 HTML body {
-	font-family: 'Quicksand', sans-serif;
+	font-family: 'Bebas Neue', cursive;
 	scroll-behavior: smooth;
 }
 h2 {
@@ -9,7 +9,6 @@ h2 {
 }
 .new-nav {
 	display: flex;
-	font-family: 'Bebas Neue', cursive;
 	color: black;
 }
 .nav-item {
