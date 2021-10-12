@@ -4,14 +4,16 @@ HTML body {
 	font-family: 'Quicksand', sans-serif;
 	scroll-behavior: smooth;
 }
+h2 {
+	font-size: 35px;
+}
 .new-nav {
 	display: flex;
 	font-family: 'Bebas Neue', cursive;
-	align-items: center;
-	background-color: white;
 	color: black;
 }
 .nav-item {
 	padding-left: 20px;
 	padding-right: 20px;
+	font-size: 20px;
 }
