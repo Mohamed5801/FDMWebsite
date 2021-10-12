@@ -6,8 +6,8 @@ HTML body {
 }
 .new-nav {
 	display: flex;
+	font-family: 'Bebas Neue', cursive;
 	align-items: center;
 	background-color: white;
 	color: black;
-	transition: background 0.5s ease-out;
 }
