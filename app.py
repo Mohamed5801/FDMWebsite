@@ -1,5 +1,5 @@
 import os
-from flask import Flask,request, jsonify, redirect, url_for
+from flask import Flask,request, jsonify, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import json
@@ -8,11 +8,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///FDM.db'
 db = SQLAlchemy(app)
 
-class Img(db.Model):
+class Pic(db.Model):
         id = db.Column(db.Integer, unique=True, primary_key=True)
         img = db.Column(db.Text, unique=True,nullable=False)
         name = db.Column(db.Text, nullable=False)
-        data_path = db.Column(db.String(), nullable=False)
         mimetype = db.Column(db.Text, nullable=False)
 
 class Product(db.Model):
@@ -41,8 +40,31 @@ class Category(db.Model):
 
 
 @app.route("/")
-def home():
-    return "Hello, Flask!"
+def index():
+    return render_template('Index.html')
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    pic = request.files['pic']
+    if not pic:
+        return 'No pic uploaded!', 400
+    filename = secure_filename(pic.filename)
+    mimetype = pic.mimetype
+    if not filename or not mimetype:
+        return 'Bad upload!', 400
+    img = Pic(img=pic.read(), name=filename, mimetype=mimetype)
+    db.session.add(img)
+    db.session.commit()
+    return 'pic uploaded!', 200
+
+@app.route('/pics')
+def get_pics():
+    pics = Pic.query.all()
+    output = []
+    for pic in pics:
+        pic_data = {'Filename': pic.name, 'Filetype': pic.mimetype, 'pic':pic.img}
+        output.append(pic_data)
+    return{"Pics": output}
 
 @app.route('/products')
 def get_products():
@@ -100,29 +122,10 @@ def get_products_by_categories(name):
 
 @app.route('/products', methods=['POST'])
 def add_product():
-    product = Product(userid=request.json['UserID'],name=request.json['Name'], 
-    price=request.json['Price'], colour=request.json['Colour'], description=request.json['Description'],
-    category=request.json['Category'])
+    product = Product(userid=request.json['UserID'],name=request.json['Name'], price=request.json['Price'], colour=request.json['Colour'], description=request.json['Description'],category=request.json['Category'])
     db.session.add(product)
     db.session.commit()
     return {'ID': product.id}
-
-@app.route('/upload', methods=['POST'])
-def upload():
-    pic = request.files['pic']
-    if not pic:
-        return 'No pic uploaded!', 400
-
-    filename = secure_filename(pic.filename)
-    mimetype = pic.mimetype
-    if not filename or not mimetype:
-        return 'Bad upload!', 400
-
-    img = Img(img=pic.read(), name=filename, mimetype=mimetype)
-    db.session.add(img)
-    db.session.commit()
-
-    return 'Img Uploaded!', 200
 
 @app.route('/sellers', methods=['POST'])
 def add_seller():
