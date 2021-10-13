@@ -1,12 +1,19 @@
-window.onscroll = function() {navlucent();}
+window.onload = function() {
+  loadFunction();
+
+};
 
 
 
-function navlucent() {
-if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-    document.getElementById("navlucent").className = "navbar fixed-top shadow  navbar-expand-xl my-nav";
-  } else{
-document.getElementById("navlucent").className = "navbar fixed-top shadow navbar-expand-xl new-nav";
-  }
+
+
+function loadFunction() {
+    document.getElementById("test").innerHTML = "jdbhfb";
+      var data = JSON.parse(test);
+      document.getElementById("test").innerHTML = "nee";
+      document.getElementById("test").innerHTML = data.House;
+}
+
+function filter() {
 
 }
