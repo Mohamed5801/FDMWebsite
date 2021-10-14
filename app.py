@@ -63,7 +63,7 @@ def upload_file():
 @app.route('/sign_up', methods=["POST", "GET"])
 def sign_up():
     if request.method =="POST":
-        session.permanent = True
+        # session.permanent = True
         password = request.form["password"]
         name = request.form["name"]
         # email = request.form["email"]
@@ -88,17 +88,18 @@ def login():
         session["nm"] = seller
         password = request.form["password"]
         session["password"] = password
-        userid = len(Seller.query.all())
-        session["userid"] = userid
 
         found_user = Seller.query.filter_by(name=seller).first()
         if found_user:
-            session["userid"] = found_user.userid
-            session["bio"] = found_user.bio
+            if found_user.password == password:
+                session["userid"] = found_user.userid
+                session["bio"] = found_user.bio
+            else:
+                flash("Name or password is incorrect.")
+                return redirect(url_for("login"))
         else:
-            user = Seller(name=seller, password=password, userid=userid)
-            db.session.add(user)
-            db.session.commit()
+            flash("User not found.")
+            return redirect(url_for("login"))
 
         flash("Logged in successfully!")
         return redirect(url_for("user"))
@@ -118,20 +119,22 @@ def user():
         nm = session["nm"]
 
         if request.method == "POST":
-            # name = request.form["name"]
-            # session["name"] = name
+            session.permanent = True
+            name = request.form["name"]
+            session["name"] = name
             password = request.form["password"]
             session["password"] = password
             bio = request.form["bio"]
             session["bio"] = bio
             found_user = Seller.query.filter_by(name=nm).first()
-            # found_user.name = name
+            found_user.name = name
             found_user.password = password
             found_user.bio = bio
             db.session.commit()
             flash("Seller profile info was saved successfully!")
             userid = found_user.userid
-            # session["nm"] = name
+            session["nm"] = name
+            nm = name
         else:
             if "bio" in session:
                 bio = session["bio"]
