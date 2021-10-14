@@ -1,11 +1,14 @@
 import os
-from flask import Flask,request, jsonify, redirect, url_for, render_template
+from flask import Flask, request, jsonify, redirect, url_for, render_template, session, flash
+from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import json
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///FDM.db'
+app.secret_key = "FDM_fcg3_2021"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:FDM_fcg3_2021@localhost/FullStackDev'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Pic(db.Model):
@@ -56,6 +59,99 @@ def upload_file():
     db.session.add(img)
     db.session.commit()
     return 'pic uploaded!', 200
+
+@app.route('/sign_up', methods=["POST", "GET"])
+def sign_up():
+    if request.method =="POST":
+        session.permanent = True
+        password = request.form["password"]
+        name = request.form["name"]
+        # email = request.form["email"]
+
+        seller = Seller(password=password, name=name, userid=len(Seller.query.all()))
+        db.session.add(seller)
+        db.session.commit()
+
+        flash("Signed up successfully!")
+        return redirect(url_for("login"))
+    else:
+        if "name" in session:
+            flash("Already logged in!")
+            return redirect(url_for("name"))
+        return render_template("SignUp.html")
+
+@app.route('/login', methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        session.permanent = True
+        seller = request.form["nm"]
+        session["nm"] = seller
+        password = request.form["password"]
+        session["password"] = password
+        userid = len(Seller.query.all())
+        session["userid"] = userid
+
+        found_user = Seller.query.filter_by(name=seller).first()
+        if found_user:
+            session["userid"] = found_user.userid
+            session["bio"] = found_user.bio
+        else:
+            user = Seller(name=seller, password=password, userid=userid)
+            db.session.add(user)
+            db.session.commit()
+
+        flash("Logged in successfully!")
+        return redirect(url_for("user"))
+    else:
+        if "user" in session:
+            flash("Already logged in!")
+            return redirect(url_for("user"))
+        return render_template("Login.html")
+
+@app.route('/user', methods=["POST", "GET"])
+def user():
+    name = None
+    userid = None
+    password = None
+    bio = None
+    if "nm" in session:
+        name = session["nm"]
+
+        if request.method == "POST":
+            name = request.form["name"]
+            session["name"] = name
+            password = request.form["password"]
+            session["password"] = password
+            bio = request.form["bio"]
+            session["bio"] = bio
+            found_user = Seller.query.filter_by(name=name).first()
+            found_user.name = name
+            found_user.password = password
+            found_user.bio = bio
+            db.session.commit()
+            flash("Seller profile info was saved successfully!")
+            userid = found_user.userid
+        else:
+            if "bio" in session:
+                bio = session["bio"]
+            if "userid" in session:
+                userid = session["userid"]
+            if "password" in session:
+                password = session["password"]
+
+        return render_template("User.html", name=name, userid=userid, password=password, bio=bio)
+    else:
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
+
+@app.route("/logout")
+def logout():
+    flash("You have been logged out!", "info")
+    session.pop("name", None)
+    session.pop("userid", None)
+    session.pop("password", None)
+    session.pop("bio", None)
+    return redirect(url_for("login"))
 
 @app.route('/pics')
 def get_pics():
@@ -152,4 +248,10 @@ def delete_account(userid):
             db.session.delete(seller)
             db.session.commit()
             return ("Account has been deleted.")
-    return {"Error":"404"} 
+    return {"Error":"404"}
+
+
+if __name__ == "__main__":
+    db.create_all()
+    app.run(debug=True)
+
