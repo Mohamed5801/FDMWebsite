@@ -115,22 +115,23 @@ def user():
     password = None
     bio = None
     if "nm" in session:
-        name = session["nm"]
+        nm = session["nm"]
 
         if request.method == "POST":
-            name = request.form["name"]
-            session["name"] = name
+            # name = request.form["name"]
+            # session["name"] = name
             password = request.form["password"]
             session["password"] = password
             bio = request.form["bio"]
             session["bio"] = bio
-            found_user = Seller.query.filter_by(name=name).first()
-            found_user.name = name
+            found_user = Seller.query.filter_by(name=nm).first()
+            # found_user.name = name
             found_user.password = password
             found_user.bio = bio
             db.session.commit()
             flash("Seller profile info was saved successfully!")
             userid = found_user.userid
+            # session["nm"] = name
         else:
             if "bio" in session:
                 bio = session["bio"]
@@ -139,7 +140,7 @@ def user():
             if "password" in session:
                 password = session["password"]
 
-        return render_template("User.html", name=name, userid=userid, password=password, bio=bio)
+        return render_template("User.html", name=nm, userid=userid, password=password, bio=bio)
     else:
         flash("You are not logged in!")
         return redirect(url_for("login"))
