@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MY APP - SIGN UP</title>
-</head>
-<body>
+{% extends "Base.html" %}
+{% block title %}MY APP - Sign Up{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<a href="/login">Have an account? Login here.</a><br>
 
 <h1>Sign Up</h1>
 
@@ -17,6 +22,4 @@
     <input type="email" name="email" placeholder="Enter Email"/><br> -->
     <input type="submit" value="submit"/><br>
 </form>
- 
-</body>
-</html>
+{% endblock %}
