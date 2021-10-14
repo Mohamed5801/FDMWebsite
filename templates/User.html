@@ -1,23 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>MY APP</title>
-</head>
-<body>
+{% extends "Base.html" %}
+{% block title %}MY APP - Edit User Profile{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+<h1>Edit User Profile</h1>
 
 <form action="#" method="POST">
-    <p>Name: {{name if name}}</p>
-    <!-- <input type="text" name="name" placeholder="Enter Name" value="{{name if name}}"/> -->
+    <p>Name:</p>
+    <input type="text" name="name" placeholder="Enter Name" value="{{name if name}}"/><br><br>
     <p>User ID: {{userid if userid}}</p>
     <p>Password:</p>
-    <input type="text" name="password" placeholder="Enter Password" value="{{password if password}}"/>
+    <input type="text" name="password" placeholder="Enter Password" value="{{password if password}}"/><br><br>
     <p>Bio:</p>
-    <textarea rows="3" cols="58" name="bio" placeholder="Enter Bio"/>{{bio if bio}}</textarea><br>
+    <textarea rows="3" cols="58" name="bio" placeholder="Enter Bio"/>{{bio if bio}}</textarea><br><br>
     <input type="submit" value="update seller profile info"/>
 </form>
 
 <a href="/logout">Log Out</a>
- 
-</body>
-</html>
+{% endblock %}
