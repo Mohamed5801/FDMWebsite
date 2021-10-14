@@ -41,9 +41,9 @@
       <div class="col-lg-3">
 
         <div class="input-group">
-          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+          <input id="searchText" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
           aria-describedby="search-addon" />
-          <button onclick="searchItems" type="button" class="btn btn-outline-primary">search</button>
+          <button onclick="searchItems(document.getElementById('searchText').value)" type="button" class="btn btn-outline-primary">search</button>
         </div>
 
       </div>

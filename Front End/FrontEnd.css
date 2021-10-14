@@ -7,7 +7,7 @@ HTML body {
 
 
 h2 {
-	font-size: 35px;
+	font-size: 45px;
 }
 .new-nav {
 	display: flex;
@@ -20,5 +20,5 @@ h2 {
 }
 
 .test {
-	height: 20000px;
+	color: red;
 }
