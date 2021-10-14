@@ -1,38 +1,46 @@
 class itemPreview {
-  constructor(albumId,id,title, url) {
-    this.albumId = albumId;
-    this.id = id;
-    this.title = title;
-    this.url;
+  constructor(colour,description,name, price, userId) {
+    this.colour = colour;
+    this.description = description;
+    this.name = name;
+    this.price = price;
+    this.userId = userId;
   }
 }
 
-createGrid();
+window.onload=createGrid(searchEnable);
+
+function searchEnable() {
+  document.getElementById("searchButton").disabled = false;
+}
 
 async function loadItems(num) {
-
   var img = new itemPreview();
 
-  img.url= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.colour= await (fetch('https://jsonplaceholder.typicode.com/photos')
       .then(response => response.json())
-      .then(json => json[num].thumbnailUrl));
+      .then(json => json[num].Colour));
 
-  img.albumId= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.description= await (fetch('https://jsonplaceholder.typicode.com/photos')
         .then(response => response.json())
-        .then(json => json[num].albumId));
+        .then(json => json[num].Description));
 
-  img.id= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.name= await (fetch('https://jsonplaceholder.typicode.com/photos')
         .then(response => response.json())
-        .then(json => json[num].id));
+        .then(json => json[num].Name));
 
-  img.title= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.price= await (fetch('https://jsonplaceholder.typicode.com/photos')
         .then(response => response.json())
-        .then(json => json[num].title));
+        .then(json => json[num].Price));
+
+  img.userId= await (fetch('https://jsonplaceholder.typicode.com/photos')
+        .then(response => response.json())
+        .then(json => json[num].UserId));
 
   return img;
 }
 
-async function createGrid() {
+async function createGrid(callback) {
   var galNum=1;
   const gallery = "gallery";
   for (let i = 0;i < 20;i++) {
@@ -47,24 +55,35 @@ async function createGrid() {
     src.appendChild(itemContainer);
 
     var title = document.createElement("h5");
-    var textTitle = document.createTextNode(item.title)
+    var textTitle = document.createTextNode(item.Name)
     title.appendChild(textTitle);
     itemContainer.appendChild(title);
 
-    var img = document.createElement("img");
-    img.src = item.url;
-    itemContainer.appendChild(img);
+    //var img = document.createElement("img");
+  //  img.src = item.url;
+  //  itemContainer.appendChild(img);
 
-    var albumId = document.createElement("p");
-    var text = document.createTextNode(item.albumId)
-    albumId.appendChild(text);
-    itemContainer.appendChild(albumId);
+    var colour = document.createElement("p");
+    var text = document.createTextNode(item.Colour)
+    colour.appendChild("Colour: " + text);
+    itemContainer.appendChild(colour);
 
-    var id = document.createElement("p");
-    var textId = document.createTextNode(item.id)
-    albumId.appendChild(textId);
-    itemContainer.appendChild(id);
+    var description = document.createElement("p");
+    var textId = document.createTextNode(item.Description)
+    description.appendChild("Description: "+textId+"\n");
+    itemContainer.appendChild(description);
+
+    var price = document.createElement("p");
+    var priceTag = document.createTextNode(item.Price)
+    price.appendChild("Price: "+priceTag+"$\n");
+    itemContainer.appendChild(price);
+
+    var userId = document.createElement("p");
+    var userID = document.createTextNode(item.Description)
+    userId.appendChild("User ID: "+userID);
+    itemContainer.appendChild(userId);
   }
+  callback();
 }
 
 function searchTerms(item, searchTerms, galNum) {
@@ -76,35 +95,49 @@ function searchTerms(item, searchTerms, galNum) {
       if (galNum < 3) {galNum++;}
       else {galNum =1;}
 
+      var item = await loadItems(i);
+      var src = document.getElementById(gallery.concat("" + galNum));
+      if (galNum < 3) {galNum++;}
+      else {galNum =1;}
+
       var itemContainer = document.createElement("div");
       itemContainer.style.cssText = "height:300px"
       src.appendChild(itemContainer);
 
       var title = document.createElement("h5");
-      var textTitle = document.createTextNode(item.title)
+      var textTitle = document.createTextNode(item.Name)
       title.appendChild(textTitle);
       itemContainer.appendChild(title);
 
-      var img = document.createElement("img");
-      img.src = item.url;
-      itemContainer.appendChild(img);
+      //var img = document.createElement("img");
+    //  img.src = item.url;
+    //  itemContainer.appendChild(img);
 
-      var albumId = document.createElement("p");
-      var text = document.createTextNode(item.albumId)
-      albumId.appendChild(text);
-      itemContainer.appendChild(albumId);
+      var colour = document.createElement("p");
+      var text = document.createTextNode(item.Colour)
+      colour.appendChild("Colour: " + text);
+      itemContainer.appendChild(colour);
 
-      var id = document.createElement("p");
-      var textId = document.createTextNode(item.id)
-      albumId.appendChild(textId);
-      itemContainer.appendChild(id);
+      var description = document.createElement("p");
+      var textId = document.createTextNode(item.Description)
+      description.appendChild("Description: "+textId+"\n");
+      itemContainer.appendChild(description);
+
+      var price = document.createElement("p");
+      var priceTag = document.createTextNode(item.Price)
+      price.appendChild("Price: "+priceTag+"$\n");
+      itemContainer.appendChild(price);
+
+      var userId = document.createElement("p");
+      var userID = document.createTextNode(item.Description)
+      userId.appendChild("User ID: "+userID);
+      itemContainer.appendChild(userId);
     }
-    console.log(galNum);
     return galNum;
 }
 
-async function searchItems(terms) {
-
+async function searchItems(terms, callback) {
+  document.getElementById("searchButton").disabled = true;
   document.getElementById("gallery1").innerHTML = "";
   document.getElementById("gallery2").innerHTML = "";
   document.getElementById("gallery3").innerHTML = "";
@@ -114,4 +147,6 @@ async function searchItems(terms) {
     var items = await loadItems(i);
     galNum = searchTerms(items,terms,galNum);
   }
+
+  callback();
 }

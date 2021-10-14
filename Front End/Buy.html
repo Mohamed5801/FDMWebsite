@@ -43,7 +43,7 @@
         <div class="input-group">
           <input id="searchText" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
           aria-describedby="search-addon" />
-          <button onclick="searchItems(document.getElementById('searchText').value)" type="button" class="btn btn-outline-primary">search</button>
+          <button disabled id="searchButton" onclick="searchItems(document.getElementById('searchText').value, searchEnable)" type="button" class="btn btn-outline-primary">search</button>
         </div>
 
       </div>

@@ -7,10 +7,15 @@ class itemPreview {
   }
 }
 
-createGrid();
+window.onload=createGrid(searchEnable);
+
+
+
+function searchEnable() {
+  document.getElementById("searchButton").disabled = false;
+}
 
 async function loadItems(num) {
-
   var img = new itemPreview();
 
   img.url= await (fetch('https://jsonplaceholder.typicode.com/photos')
@@ -32,7 +37,9 @@ async function loadItems(num) {
   return img;
 }
 
-async function createGrid() {
+async function createGrid(callback) {
+
+
   var galNum=1;
   const gallery = "gallery";
   for (let i = 0;i < 20;i++) {
@@ -65,6 +72,7 @@ async function createGrid() {
     albumId.appendChild(textId);
     itemContainer.appendChild(id);
   }
+  callback();
 }
 
 function searchTerms(item, searchTerms, galNum) {
@@ -99,12 +107,11 @@ function searchTerms(item, searchTerms, galNum) {
       albumId.appendChild(textId);
       itemContainer.appendChild(id);
     }
-    console.log(galNum);
     return galNum;
 }
 
-async function searchItems(terms) {
-
+async function searchItems(terms, callback) {
+  document.getElementById("searchButton").disabled = true;
   document.getElementById("gallery1").innerHTML = "";
   document.getElementById("gallery2").innerHTML = "";
   document.getElementById("gallery3").innerHTML = "";
@@ -114,4 +121,6 @@ async function searchItems(terms) {
     var items = await loadItems(i);
     galNum = searchTerms(items,terms,galNum);
   }
+
+  callback();
 }
