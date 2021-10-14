@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MY APP</title>
+</head>
+<body>
+
+<form action="#" method="POST">
+    <p>Name:</p>
+    <input type="text" name="name" placeholder="Enter Name" value="{{name if name}}"/>
+    <p>User ID: {{userid if userid}}</p>
+    <p>Password:</p>
+    <input type="text" name="password" placeholder="Enter Password" value="{{password if password}}"/>
+    <p>Bio:</p>
+    <textarea rows="3" cols="58" name="bio" placeholder="Enter Bio"/>{{bio if bio}}</textarea><br>
+    <input type="submit" value="update seller profile info"/>
+</form>
+
+<a href="/logout">Log Out</a>
+ 
+</body>
+</html>
