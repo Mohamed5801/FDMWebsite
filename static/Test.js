@@ -14,6 +14,7 @@ async function getSize() {
         .then(json =>  Object.keys( json['products']).length));
 }
 var jsonSize = getSize();
+console.log(jsonSize);
 createGrid(searchEnable);
 
 function searchEnable() {
