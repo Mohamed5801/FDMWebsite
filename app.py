@@ -204,7 +204,7 @@ def allowed_file(filename):
 def load():
     return render_template("Upload.html")
 
-@app.route("/upload", methods=["POST"])
+@app.route("/upload", methods=["POST", "GET"])
 def upload():
     if 'file' not in request.files:
         flash('No file part')
@@ -218,7 +218,7 @@ def upload():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # print('upload_image filename: ' + filename)
 
-        pic = Pic(id=len(Pic.query.all()), img="img", name=filename, mimetype="mimetype")
+        pic = Pic(id=len(Pic.query.all())+1, img="img", name=filename, mimetype="mimetype")
         db.session.add(pic)
         db.session.commit()
 
