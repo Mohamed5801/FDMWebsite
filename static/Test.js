@@ -51,7 +51,7 @@ async function loadItems(num) {
 async function createGrid(callback) {
   var galNum=1;
   const gallery = "gallery";
-  for (let i = 0;i < jsonSize;i++) {
+  for (let i = 0;i < 30;i++) {
 
     var item = await loadItems(i);
     var src = document.getElementById(gallery.concat("" + galNum));
@@ -193,7 +193,7 @@ async function searchItems(terms, callback) {
   document.getElementById("gallery3").innerHTML = "";
 
   var galNum=1;
-  for (var i=0;i<jsonSize;i++) {
+  for (var i=0;i<30;i++) {
     var items = await loadItems(i);
     galNum = searchTerms(items,terms,galNum);
   }
@@ -230,7 +230,7 @@ async function colourCheck(callback) {
 
 
   var galNum=1;
-  for (var i=0;i<jsonSize;i++) {
+  for (var i=0;i<30;i++) {
     var items = await loadItems(i);
     galNum = searchColours(items,allColours,galNum);
   }
