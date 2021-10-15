@@ -22,11 +22,11 @@ async function loadItems(num) {
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json[num].DEscription));
+        .then(json => json[num].DEscription);
 
   img.name= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json[num].Name));
+        .then(json => json[num].Name);
 
   img.price= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
