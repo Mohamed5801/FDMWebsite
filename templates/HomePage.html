@@ -12,7 +12,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-	<link href="FrontEnd.css" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='FrontEnd.css')}}" rel="stylesheet" type="text/css">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,9 +29,9 @@
 				</div>
 				<div class="col-sm-6">
 					<ul class="nav navbar-nav container-fixed d-flex justify-content-right">
-						<li class="nav-item active"><a class="active" href="HomePage.html">Home</a></li>
-						<li class="nav-item undone"><a href="Buy.html">Buy</a></li>
-						<li class="nav-item undone"><a>Sell</a></li>
+						<li class="nav-item active"><a class="active" href="/home">Home</a></li>
+						<li class="nav-item undone"><a href="/buy">Buy</a></li>
+						<li class="nav-item undone"><a href="/sell">Sell</a></li>
 					</ul>
 				</div>
 		</div>
