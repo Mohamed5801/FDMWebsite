@@ -17,23 +17,23 @@ function searchEnable() {
 async function loadItems(num) {
   var img = new itemPreview();
 
-  img.colour= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.colour= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
       .then(response => response.json())
       .then(json => json[num].Colour));
 
-  img.description= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.description= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
         .then(response => response.json())
         .then(json => json[num].Description));
 
-  img.name= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.name= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
         .then(response => response.json())
         .then(json => json[num].Name));
 
-  img.price= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.price= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
         .then(response => response.json())
         .then(json => json[num].Price));
 
-  img.userId= await (fetch('https://jsonplaceholder.typicode.com/photos')
+  img.userId= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
         .then(response => response.json())
         .then(json => json[num].UserId));
 
@@ -43,7 +43,7 @@ async function loadItems(num) {
 async function createGrid(callback) {
   var galNum=1;
   const gallery = "gallery";
-  for (let i = 0;i < 20;i++) {
+  for (let i = 0;i < 1;i++) {
 
     var item = await loadItems(i);
     var src = document.getElementById(gallery.concat("" + galNum));
@@ -63,30 +63,30 @@ async function createGrid(callback) {
   //  img.src = item.url;
   //  itemContainer.appendChild(img);
 
-    var colour = document.createElement("p");
-    var text = document.createTextNode(item.Colour)
-    colour.appendChild("Colour: " + text);
-    itemContainer.appendChild(colour);
+  //  var colour = document.createElement("p");
+//    var text = document.createTextNode(item.Colour)
+  //  colour.appendChild("Colour: " + text);
+  //  itemContainer.appendChild(colour);
 
     var description = document.createElement("p");
     var textId = document.createTextNode(item.Description)
     description.appendChild("Description: "+textId+"\n");
     itemContainer.appendChild(description);
 
-    var price = document.createElement("p");
-    var priceTag = document.createTextNode(item.Price)
-    price.appendChild("Price: "+priceTag+"$\n");
-    itemContainer.appendChild(price);
+  //  var price = document.createElement("p");
+//    var priceTag = document.createTextNode(item.Price)
+//    price.appendChild("Price: "+priceTag+"$\n");
+//    itemContainer.appendChild(price);
 
-    var userId = document.createElement("p");
-    var userID = document.createTextNode(item.Description)
-    userId.appendChild("User ID: "+userID);
-    itemContainer.appendChild(userId);
+//    var userId = document.createElement("p");
+//    var userID = document.createTextNode(item.Description)
+//    userId.appendChild("User ID: "+userID);
+//    itemContainer.appendChild(userId);
   }
   callback();
 }
 
-function searchTerms(item, searchTerms, galNum) {
+async function searchTerms(item, searchTerms, galNum) {
   const gallery = "gallery";
   if (item.title.includes(searchTerms)) {
 
@@ -113,20 +113,20 @@ function searchTerms(item, searchTerms, galNum) {
     //  img.src = item.url;
     //  itemContainer.appendChild(img);
 
-      var colour = document.createElement("p");
-      var text = document.createTextNode(item.Colour)
-      colour.appendChild("Colour: " + text);
-      itemContainer.appendChild(colour);
+//      var colour = document.createElement("p");
+//      var text = document.createTextNode(item.Colour)
+//      colour.appendChild("Colour: " + text);
+//      itemContainer.appendChild(colour);
 
       var description = document.createElement("p");
       var textId = document.createTextNode(item.Description)
       description.appendChild("Description: "+textId+"\n");
       itemContainer.appendChild(description);
 
-      var price = document.createElement("p");
-      var priceTag = document.createTextNode(item.Price)
-      price.appendChild("Price: "+priceTag+"$\n");
-      itemContainer.appendChild(price);
+//      var price = document.createElement("p");
+//      var priceTag = document.createTextNode(item.Price)
+//      price.appendChild("Price: "+priceTag+"$\n");
+//      itemContainer.appendChild(price);
 
       var userId = document.createElement("p");
       var userID = document.createTextNode(item.Description)
@@ -143,7 +143,7 @@ async function searchItems(terms, callback) {
   document.getElementById("gallery3").innerHTML = "";
 
   var galNum=1;
-  for (var i=0;i<20;i++) {
+  for (var i=0;i<1;i++) {
     var items = await loadItems(i);
     galNum = searchTerms(items,terms,galNum);
   }
