@@ -48,10 +48,6 @@ async function loadItems(num) {
             .then(response => response.json())
             .then(json => json['products'][num].Colour));
 
-console.log(img.colour);
-console.log(img.name);
-console.log(img.userId);
-
   return img;
 }
 
