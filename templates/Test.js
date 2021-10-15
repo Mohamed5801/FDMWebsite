@@ -17,7 +17,9 @@ function searchEnable() {
 async function loadItems(num) {
   var img = new itemPreview();
 
-
+  fetch('http://127.0.0.1:5000/products')
+        .then(response => response.json())
+        .then(json => console.log(json));
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
