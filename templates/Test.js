@@ -30,7 +30,7 @@ async function loadItems(num) {
 
   img.price= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json =>console.log(json);
+        .then(json =>console.log(json.products[0]);
 
   img.userId= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
