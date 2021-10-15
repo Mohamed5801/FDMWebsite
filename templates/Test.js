@@ -8,7 +8,9 @@ class itemPreview {
   }
 }
 
-window.onload=createGrid(searchEnable);
+window.onload=fetch('http://127.0.0.1:5000/products')
+      .then(response => response.json())
+      .then(json => console.log(json));;
 
 function searchEnable() {
   document.getElementById("searchButton").disabled = false;
