@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
-	<title>Buy</title>
+	<title>Sell</title>
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -12,7 +12,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-	<link href="FrontEnd.css" rel="stylesheet" type="text/css">
+	<link href="{{ url_for('static', filename='FrontEnd.css')}}" rel="stylesheet" type="text/css">
   <script src="Buy.js"></script>
 	<script type="text/javascript" src="test.json"></script>
 
@@ -33,8 +33,8 @@
 			<div class="col-lg-6 container-fluid d-flex justify-content-center">
 				<ul class="nav">
 					<li class="nav-item undone"><a>Home</a></li>
-					<li class="nav-item active" data-toggle="tooltip" data-placement="bottom" title="Under Construction"><a class="active" href="Michael.html">Buy</a></li>
-					<li class="nav-item undone" data-toggle="tooltip" data-placement="bottom" title="Under Construction"><a>Sell</a></li>
+					<li class="nav-item active" data-toggle="tooltip" data-placement="bottom" title="Under Construction"><a>Buy</a></li>
+					<li class="nav-item undone" data-toggle="tooltip" data-placement="bottom" title="Under Construction"><a class="active" href="Michael.html">Sell</a></li>
 				</ul>
 			</div>
 
