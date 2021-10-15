@@ -4,9 +4,16 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import json
+import urllib.request
 
 app = Flask(__name__)
+UPLOAD_FOLDER = 'static/uploads/'
+
 app.secret_key = "FDM_fcg3_2021"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:FDM_fcg3_2021@localhost/FullStackDev'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -46,19 +53,19 @@ class Category(db.Model):
 def index():
     return render_template('Index.html')
 
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    pic = request.files['pic']
-    if not pic:
-        return 'No pic uploaded!', 400
-    filename = secure_filename(pic.filename)
-    mimetype = pic.mimetype
-    if not filename or not mimetype:
-        return 'Bad upload!', 400
-    img = Pic(img=pic.read(), name=filename, mimetype=mimetype)
-    db.session.add(img)
-    db.session.commit()
-    return 'pic uploaded!', 200
+# @app.route('/upload', methods=['POST'])
+# def upload_file():
+#     pic = request.files['pic']
+#     if not pic:
+#         return 'No pic uploaded!', 400
+#     filename = secure_filename(pic.filename)
+#     mimetype = pic.mimetype
+#     if not filename or not mimetype:
+#         return 'Bad upload!', 400
+#     img = Pic(img=pic.read(), name=filename, mimetype=mimetype)
+#     db.session.add(img)
+#     db.session.commit()
+#     return 'pic uploaded!', 200
 
 @app.route('/sign_up', methods=["POST", "GET"])
 def sign_up():
@@ -157,6 +164,75 @@ def logout():
     session.pop("bio", None)
     return redirect(url_for("login"))
 
+@app.route("/home")
+def home():
+    return render_template("Index.html")
+    # return render_template("HomePage.html")
+
+@app.route("/buy")
+def buy():
+    return render_template("Buy.html")
+
+@app.route("/sell", methods=["POST", "GET"])
+def sell():
+    if request.method == "POST":
+        session.permanent = True
+        title = request.form["title"]
+        session["title"] = title
+        category = request.form["category"]
+        session["category"] = category
+        description = request.form["description"]
+        session["description"] = description
+        price = request.form["price"]
+        session["price"] = price
+        found_user = Seller.query.filter_by(name=session["nm"]).first()
+        userid = found_user.userid
+
+        product = Product(id=len(Product.query.all())+1, userid=userid, name=title, category=category, description=description, price=price)
+        db.session.add(product)
+        db.session.commit()
+        flash("New listing was made successfully!")
+        return redirect(url_for("load"))
+    else:
+        print(session)
+        return render_template("Sell.html")
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route("/load")
+def load():
+    return render_template("Upload.html")
+
+@app.route("/upload", methods=["POST"])
+def upload():
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+        flash('No image selected for uploading')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # print('upload_image filename: ' + filename)
+
+        pic = Pic(id=len(Pic.query.all()), img="img", name=filename, mimetype="mimetype")
+        db.session.add(pic)
+        db.session.commit()
+
+        flash('Image successfully uploaded and displayed below')
+        return render_template('Upload.html', filename=filename)
+    else:
+        flash('Allowed image types are - png, jpg, jpeg, gif')
+        return redirect(request.url)
+
+@app.route('/display/<filename>')
+def display_image(filename):
+    print('display_image filename: ' + filename)
+    return redirect(url_for('static', filename='uploads/' + filename), code=301)
+
 @app.route('/pics')
 def get_pics():
     pics = Pic.query.all()
@@ -171,7 +247,7 @@ def get_products():
     products = Product.query.all()
     output = []
     for product in products:
-        product_data = {'User ID': product.userid, 'Name': product.name, 'Price': product.price, 'Colour': product.colour, 'DEscription':product.description}
+        product_data = {'User_ID': product.userid, 'Name': product.name, 'Price': product.price, 'Colour': product.colour, 'DEscription':product.description}
         output.append(product_data)
     return{"products": output}
 
