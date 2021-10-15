@@ -157,6 +157,11 @@ def logout():
     session.pop("bio", None)
     return redirect(url_for("login"))
 
+@app.route("/home")
+def home():
+    return render_template("Index.html")
+    # return render_template("HomePage.html")
+
 @app.route("/buy")
 def buy():
     return render_template("Buy.html")
