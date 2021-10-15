@@ -9,7 +9,6 @@ class itemPreview {
 }
 
 createGrid(searchEnable);
-console.log("test");
 
 function searchEnable() {
   document.getElementById("searchButton").disabled = false;
@@ -18,9 +17,12 @@ function searchEnable() {
 async function loadItems(num) {
   console.log("testload");
   var img = new itemPreview();
-  fetch('http://127.0.0.1:5000/products')
+  console.log(fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json.products);
+        .then(json => json['products']));
+        console.log(fetch('http://127.0.0.1:5000/products')
+              .then(response => response.json())
+              .then(json => json['products'].Name));
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
@@ -32,7 +34,7 @@ async function loadItems(num) {
 
   img.price= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json =>console.log(json.products[0])));
+        .then(json =>console.log(json['products'].Name)));
 
   img.userId= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
@@ -42,7 +44,6 @@ async function loadItems(num) {
             .then(response => response.json())
             .then(json => json[num].Colour));
 
-             console.log(img);
 
   return img;
 }
