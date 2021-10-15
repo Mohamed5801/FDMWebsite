@@ -157,6 +157,14 @@ def logout():
     session.pop("bio", None)
     return redirect(url_for("login"))
 
+@app.route("/buy")
+def buy():
+    return render_template("Buy.html")
+
+@app.route("/sell")
+def sell():
+    return render_template("Sell.html")
+
 @app.route('/pics')
 def get_pics():
     pics = Pic.query.all()
