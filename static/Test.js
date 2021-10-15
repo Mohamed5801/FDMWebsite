@@ -68,7 +68,6 @@ console.log(img.userId);
 }
 
 async function createGrid(callback) {
-  console.log("testGrid");
   var galNum=1;
   const gallery = "gallery";
   for (let i = 0;i < 10;i++) {
@@ -85,7 +84,7 @@ async function createGrid(callback) {
     var title = document.createElement("h5");
     var temp0 = ""
     var textTitle = document.createTextNode(item.name)
-    title.appendChild(temp0.concat("Name: " + textTitle + "\n"));
+    title.appendChild(temp0.concat("Name: " , textTitle));
     itemContainer.appendChild(title);
 
     //var img = document.createElement("img");
@@ -95,19 +94,19 @@ async function createGrid(callback) {
     var colour = document.createElement("p");
     var text = document.createTextNode(item.colour)
     var temp1 = "";
-    colour.appendChild(temp1.concat("Colour: " + text + "\n"));
+    colour.appendChild(temp1.concat("\nColour: ", text , "\n"));
     itemContainer.appendChild(colour);
 
     var description = document.createElement("p");
     var textId = document.createTextNode(item.description)
     var temp2="";
-    description.appendChild(temp2.concat("Description: " + textId + "\n"));
+    description.appendChild(temp2.concat("Description: " , textId , "\n"));
     itemContainer.appendChild(description);
 
     var price = document.createElement("p");
     var priceTag = document.createTextNode(item.price)
     var temp3="";
-    price.appendChild(temp3.concat("Price: " + priceTag + "$\n"));
+    price.appendChild(temp3.concat("Price: " , priceTag , "$\n"));
     itemContainer.appendChild(price);
 
     var userId = document.createElement("p");
