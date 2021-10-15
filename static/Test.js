@@ -83,8 +83,9 @@ async function createGrid(callback) {
     src.appendChild(itemContainer);
 
     var title = document.createElement("h5");
+    var temp0 = ""
     var textTitle = document.createTextNode(item.name)
-    title.appendChild(textTitle);
+    title.appendChild(temp0.concat("Name: " + textTitle + "\n"));
     itemContainer.appendChild(title);
 
     //var img = document.createElement("img");
@@ -93,22 +94,26 @@ async function createGrid(callback) {
 
     var colour = document.createElement("p");
     var text = document.createTextNode(item.colour)
-    colour.appendChild("Colour: " + text);
+    var temp1 = "";
+    colour.appendChild(temp1.concat("Colour: " + text + "\n"));
     itemContainer.appendChild(colour);
 
     var description = document.createElement("p");
     var textId = document.createTextNode(item.description)
-    description.appendChild(textId);
+    var temp2="";
+    description.appendChild(temp2.concat("Description: " + textId + "\n"));
     itemContainer.appendChild(description);
 
     var price = document.createElement("p");
     var priceTag = document.createTextNode(item.price)
-    price.appendChild("Price: "+priceTag+"$\n");
+    var temp3="";
+    price.appendChild(temp3.concat("Price: " + priceTag + "$\n"));
     itemContainer.appendChild(price);
 
     var userId = document.createElement("p");
     var userID = document.createTextNode(item.userId)
-    userId.appendChild("User ID: "+userID);
+    var temp4 = ""
+    userId.appendChild(temp4.concat("Seller ID: " + userID));
     itemContainer.appendChild(userId);
   }
   callback();
@@ -133,32 +138,37 @@ async function searchTerms(item, searchTerms, galNum) {
       src.appendChild(itemContainer);
 
       var title = document.createElement("h5");
+      var temp0 = ""
       var textTitle = document.createTextNode(item.name)
-      title.appendChild(textTitle);
+      title.appendChild(temp0.concat("Name: " + textTitle + "\n"));
       itemContainer.appendChild(title);
 
       //var img = document.createElement("img");
     //  img.src = item.url;
     //  itemContainer.appendChild(img);
 
-//      var colour = document.createElement("p");
-//      var text = document.createTextNode(item.Colour)
-//      colour.appendChild("Colour: " + text);
-//      itemContainer.appendChild(colour);
+      var colour = document.createElement("p");
+      var text = document.createTextNode(item.colour)
+      var temp1 = "";
+      colour.appendChild(temp1.concat("Colour: " + text + "\n"));
+      itemContainer.appendChild(colour);
 
       var description = document.createElement("p");
       var textId = document.createTextNode(item.description)
-      description.appendChild(textId);
+      var temp2="";
+      description.appendChild(temp2.concat("Description: " + textId + "\n"));
       itemContainer.appendChild(description);
 
-//      var price = document.createElement("p");
-//      var priceTag = document.createTextNode(item.Price)
-//      price.appendChild("Price: "+priceTag+"$\n");
-//      itemContainer.appendChild(price);
+      var price = document.createElement("p");
+      var priceTag = document.createTextNode(item.price)
+      var temp3="";
+      price.appendChild(temp3.concat("Price: " + priceTag + "$\n"));
+      itemContainer.appendChild(price);
 
       var userId = document.createElement("p");
-      var userID = document.createTextNode(item.Description)
-      userId.appendChild(userID);
+      var userID = document.createTextNode(item.userId)
+      var temp4 = ""
+      userId.appendChild(temp4.concat("Seller ID: " + userID));
       itemContainer.appendChild(userId);
     }
     return galNum;
