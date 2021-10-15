@@ -8,6 +8,7 @@ class itemPreview {
   }
 }
 
+
 createGrid(searchEnable);
 
 function searchEnable() {
@@ -83,8 +84,8 @@ async function createGrid(callback) {
 
     var title = document.createElement("h5");
     var temp0 = ""
-    var textTitle = document.createTextNode(item.name)
-    title.appendChild(temp0.concat("Name: " , textTitle));
+    var textTitle = document.createTextNode(item.name);
+    title.appendChild(temp0.concat("Name: " , textTitle.textContent));
     itemContainer.appendChild(title);
 
     //var img = document.createElement("img");
@@ -92,27 +93,27 @@ async function createGrid(callback) {
   //  itemContainer.appendChild(img);
 
     var colour = document.createElement("p");
-    var text = document.createTextNode(item.colour)
+    var text = document.createTextNode(item.colour);
     var temp1 = "";
-    colour.appendChild(temp1.concat("\nColour: ", text , "\n"));
+    colour.appendChild(temp1.concat("\nColour: ", text.textContent , "\n"));
     itemContainer.appendChild(colour);
 
     var description = document.createElement("p");
-    var textId = document.createTextNode(item.description)
+    var textId = document.createTextNode(item.description);
     var temp2="";
-    description.appendChild(temp2.concat("Description: " , textId , "\n"));
+    description.appendChild(temp2.concat("Description: " , textId.textContent , "\n"));
     itemContainer.appendChild(description);
 
     var price = document.createElement("p");
-    var priceTag = document.createTextNode(item.price)
+    var priceTag = document.createTextNode(item.price);
     var temp3="";
-    price.appendChild(temp3.concat("Price: " , priceTag , "$\n"));
+    price.appendChild(temp3.concat("Price: " , priceTag.textContent , "$\n"));
     itemContainer.appendChild(price);
 
     var userId = document.createElement("p");
-    var userID = document.createTextNode(item.userId)
+    var userID = document.createTextNode(item.userId);
     var temp4 = ""
-    userId.appendChild(temp4.concat("Seller ID: " + userID));
+    userId.appendChild(temp4.concat("Seller ID: " + userID.textContent));
     itemContainer.appendChild(userId);
   }
   callback();
