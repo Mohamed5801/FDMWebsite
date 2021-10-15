@@ -23,7 +23,7 @@ async function loadItems(num) {
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json[num].Description));
+        .then(json => json[num].DEscription));
 
   img.name= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
@@ -35,7 +35,7 @@ async function loadItems(num) {
 
   img.userId= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json[num].UserId));
+        .then(json => json[num].User_ID));
 
   return img;
 }
@@ -55,7 +55,7 @@ async function createGrid(callback) {
     src.appendChild(itemContainer);
 
     var title = document.createElement("h5");
-    var textTitle = document.createTextNode(item.Name)
+    var textTitle = document.createTextNode(item.name)
     title.appendChild(textTitle);
     itemContainer.appendChild(title);
 
@@ -69,8 +69,8 @@ async function createGrid(callback) {
   //  itemContainer.appendChild(colour);
 
     var description = document.createElement("p");
-    var textId = document.createTextNode(item.Description)
-    description.appendChild("Description: "+textId+"\n");
+    var textId = document.createTextNode(item.description)
+    description.appendChild(textId);
     itemContainer.appendChild(description);
 
   //  var price = document.createElement("p");
@@ -120,7 +120,7 @@ async function searchTerms(item, searchTerms, galNum) {
 
       var description = document.createElement("p");
       var textId = document.createTextNode(item.Description)
-      description.appendChild("Description: "+textId+"\n");
+      description.appendChild(textId);
       itemContainer.appendChild(description);
 
 //      var price = document.createElement("p");
@@ -130,7 +130,7 @@ async function searchTerms(item, searchTerms, galNum) {
 
       var userId = document.createElement("p");
       var userID = document.createTextNode(item.Description)
-      userId.appendChild("User ID: "+userID);
+      userId.appendChild(userID);
       itemContainer.appendChild(userId);
     }
     return galNum;
