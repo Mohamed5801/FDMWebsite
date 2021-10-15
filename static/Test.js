@@ -29,6 +29,12 @@ async function loadItems(num) {
         console.log(fetch('http://127.0.0.1:5000/products')
               .then(response => response.json())
               .then(json => json['products'][0]));
+              console.log(fetch('http://127.0.0.1:5000/products')
+                    .then(response => response.json())
+                    .then(json => json['products'].Name[0]));
+                    console.log(fetch('http://127.0.0.1:5000/products')
+                          .then(response => response.json())
+                          .then(json => json.products));
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
