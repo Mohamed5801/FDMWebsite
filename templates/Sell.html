@@ -58,38 +58,31 @@
 <body>
 
 <div class="container">
-<p> 
-<form action="/html/tags/html_form_tag_action.cfm" method="get"> </p>
-Title </p>
-<input type="text" name="first_name" value="" maxlength="100" />
-<br /> </p>
-
-<p>
-<label>Category
-<select id="pickup_place" name="pickup_place">
-<option value="" selected="selected">Select One</option>
-<option value="Household" >Household</option>
-<option value="Clothing" >Clothing</option>
-<option value="Appliances" >Appliances</option>
-</select>
-</label> 
-</p>
-
-Description </p> 
-<input type="text" name="first_name" value="" maxlength="100" />
-<br /> </p>
-Attach Photos </p> 
-<form action="http://127.0.0.1:5000/upload" enctype="multipart/form-data" method="POST"> 
-   <input type="file" name="pic" />
-   <input type="submit" value="Upload a file"/>
-</form>
-
-<br /> </p>
-Price </p> 
-<input type="text" name="last_name" value="" maxlength="100" /> </p> 
-<input type="submit" value="Submit Listing!" /> 
-</form>
+	<form action="#" method="POST">
+		<p>Title<br>
+		<input type="text" name="title"><br></p>
+		<p><label>Category
+			<select id="category" name="category">
+				<option value="" selected="selected">Select One</option>
+				<option value="Household" >Household</option>
+				<option value="Clothing" >Clothing</option>
+				<option value="Appliances" >Appliances</option>
+				<option value="Other" >Other</option>
+			</select>
+		</label></p>
+		<p>Description<br>
+		<input type="text" name="description"><br></p>
+		<!-- <p>Attach Photos</p>
+		<form action="#" enctype="multipart/form-data" method="post">
+			<input type="file" name="pic" />
+   		<input type="submit" value="Upload a file"/>
+		</form><br> -->
+		<p>Price</p>
+		<input type="text" name="price" value="" maxlength="100" /> </p> 
+		<input type="submit" value="Submit Listing!" /> 
+	</form>
 </div>
+
 <body/>
 
     </div>
