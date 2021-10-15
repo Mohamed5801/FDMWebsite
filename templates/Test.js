@@ -105,7 +105,7 @@ async function searchTerms(item, searchTerms, galNum) {
       src.appendChild(itemContainer);
 
       var title = document.createElement("h5");
-      var textTitle = document.createTextNode(item.Name)
+      var textTitle = document.createTextNode(item.name)
       title.appendChild(textTitle);
       itemContainer.appendChild(title);
 
@@ -119,7 +119,7 @@ async function searchTerms(item, searchTerms, galNum) {
 //      itemContainer.appendChild(colour);
 
       var description = document.createElement("p");
-      var textId = document.createTextNode(item.Description)
+      var textId = document.createTextNode(item.description)
       description.appendChild(textId);
       itemContainer.appendChild(description);
 
