@@ -39,6 +39,8 @@ async function loadItems(num) {
             .then(response => response.json())
             .then(json => json[num].Colour));
 
+             console.log(img);
+
   return img;
 }
 
