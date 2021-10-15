@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>MY APP</title>
-</head>
-<body>
+{% extends "Base.html" %}
+{% block title %}MY APP{% endblock %}
 
-<a href="/sign_up">New user? Sign up here.</a><br>
-<a href="/login">Have an account? Login here.</a><br>
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<h1>Welcome to the Buy and Sell Website!</h1>
 
-<form action="#" enctype="multipart/form-data" method="POST">
-   <input type="file" name="pic" />
-   <input type="submit" value="Upload a file"/>
-</form>
- 
-</body>
-</html>
+<div class="center">
+  <a href="/sign_up"><button class="block">New User? Sign up here.</button></a>
+  <a href="/login"><button class="block">Have an account? Login here.</button></a>
+</div>
+{% endblock %}
