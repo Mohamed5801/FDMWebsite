@@ -8,6 +8,11 @@ class itemPreview {
   }
 }
 
+async function getSize() {
+  return await (fetch('http://127.0.0.1:5000/products')
+        .then(response => response.json())
+        .then(json =>  Object.keys( json['products']).length));
+}
 
 createGrid(searchEnable);
 
@@ -18,24 +23,6 @@ function searchEnable() {
 async function loadItems(num) {
 
   var img = new itemPreview();
-//  console.log(fetch('http://127.0.0.1:5000/products')
-//        .then(response => response.json())
-//        .then(json => json['products']));
-//  console.log(fetch('http://127.0.0.1:5000/products')
-  //      .then(response => response.json())
-  //      .then(json => json['products'].Name));
-  //console.log(fetch('http://127.0.0.1:5000/products')
-  //      .then(response => response.json())
-    //    .then(json => json['products'][0].Name));
-    //    console.log(fetch('http://127.0.0.1:5000/products')
-    //          .then(response => response.json())
-      //        .then(json => json['products'][0]));
-      //        console.log(fetch('http://127.0.0.1:5000/products')
-      //              .then(response => response.json())
-      //              .then(json => json['products'].Name[0]));
-        //            console.log(fetch('http://127.0.0.1:5000/products')
-        //                  .then(response => response.json())
-        //                  .then(json => json.products));
 
 
 
@@ -71,7 +58,7 @@ console.log(img.userId);
 async function createGrid(callback) {
   var galNum=1;
   const gallery = "gallery";
-  for (let i = 0;i < 10;i++) {
+  for (let i = 0;i < getSize();i++) {
 
     var item = await loadItems(i);
     var src = document.getElementById(gallery.concat("" + galNum));
@@ -103,7 +90,7 @@ async function createGrid(callback) {
 
     var description = document.createElement("p");
     var textId = document.createTextNode(temp1.concat("Description: ", item.description , "\n"));
-    description.appendChild(temp2.concat(textId));
+    description.appendChild(textId);
     itemContainer.appendChild(description);
 
     var price = document.createElement("p");
@@ -152,7 +139,7 @@ async function searchTerms(item, searchTerms, galNum) {
 
     var description = document.createElement("p");
     var textId = document.createTextNode(temp1.concat("Description: ", item.description , "\n"));
-    description.appendChild(temp2.concat(textId));
+    description.appendChild(textId);
     itemContainer.appendChild(description);
 
     var price = document.createElement("p");
@@ -190,7 +177,7 @@ async function colourCheck(isRed, callback) {
   document.getElementById("gallery3").innerHTML = "";
 
   var galNum=1;
-  for (var i=0;i<20;i++) {
+  for (var i=0;i<getSize();i++) {
     var items = await loadItems(i);
     galNum = searchTerms(items,terms,galNum);
   }
