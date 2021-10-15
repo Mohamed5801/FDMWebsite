@@ -15,47 +15,54 @@ function searchEnable() {
 }
 
 async function loadItems(num) {
-  console.log("testload");
+
   var img = new itemPreview();
-  console.log(fetch('http://127.0.0.1:5000/products')
-        .then(response => response.json())
-        .then(json => json['products']));
-  console.log(fetch('http://127.0.0.1:5000/products')
-        .then(response => response.json())
-        .then(json => json['products'].Name));
-  console.log(fetch('http://127.0.0.1:5000/products')
-        .then(response => response.json())
-        .then(json => json['products'][0].Name));
-        console.log(fetch('http://127.0.0.1:5000/products')
-              .then(response => response.json())
-              .then(json => json['products'][0]));
-              console.log(fetch('http://127.0.0.1:5000/products')
-                    .then(response => response.json())
-                    .then(json => json['products'].Name[0]));
-                    console.log(fetch('http://127.0.0.1:5000/products')
-                          .then(response => response.json())
-                          .then(json => json.products));
+//  console.log(fetch('http://127.0.0.1:5000/products')
+//        .then(response => response.json())
+//        .then(json => json['products']));
+//  console.log(fetch('http://127.0.0.1:5000/products')
+  //      .then(response => response.json())
+  //      .then(json => json['products'].Name));
+  //console.log(fetch('http://127.0.0.1:5000/products')
+  //      .then(response => response.json())
+    //    .then(json => json['products'][0].Name));
+    //    console.log(fetch('http://127.0.0.1:5000/products')
+    //          .then(response => response.json())
+      //        .then(json => json['products'][0]));
+      //        console.log(fetch('http://127.0.0.1:5000/products')
+      //              .then(response => response.json())
+      //              .then(json => json['products'].Name[0]));
+        //            console.log(fetch('http://127.0.0.1:5000/products')
+        //                  .then(response => response.json())
+        //                  .then(json => json.products));
+
+
+
+
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json[num].DEscription));
+        .then(json => json['products'][num].DEscription));
 
   img.name= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json[num].Name));
+        .then(json => json['products'][num].Name));
 
   img.price= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json =>console.log(json['products'].Name)));
+        .then(json =>json['products'][num].Price));
 
   img.userId= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => console.log(json[num].Name)));
+        .then(json => json['products'][num].User_ID));
 
         img.colour= await (fetch('http://127.0.0.1:5000/products')
             .then(response => response.json())
-            .then(json => json[num].Colour));
+            .then(json => json['products'][num].Colour));
 
+console.log(img.colour);
+console.log(img.name);
+console.log(img.userId);
 
   return img;
 }
@@ -64,7 +71,7 @@ async function createGrid(callback) {
   console.log("testGrid");
   var galNum=1;
   const gallery = "gallery";
-  for (let i = 0;i < 20;i++) {
+  for (let i = 0;i < 10;i++) {
 
     var item = await loadItems(i);
     var src = document.getElementById(gallery.concat("" + galNum));
@@ -84,25 +91,25 @@ async function createGrid(callback) {
   //  img.src = item.url;
   //  itemContainer.appendChild(img);
 
-  //  var colour = document.createElement("p");
-//    var text = document.createTextNode(item.Colour)
-  //  colour.appendChild("Colour: " + text);
-  //  itemContainer.appendChild(colour);
+    var colour = document.createElement("p");
+    var text = document.createTextNode(item.colour)
+    colour.appendChild("Colour: " + text);
+    itemContainer.appendChild(colour);
 
     var description = document.createElement("p");
     var textId = document.createTextNode(item.description)
     description.appendChild(textId);
     itemContainer.appendChild(description);
 
-  //  var price = document.createElement("p");
-//    var priceTag = document.createTextNode(item.Price)
-//    price.appendChild("Price: "+priceTag+"$\n");
-//    itemContainer.appendChild(price);
+    var price = document.createElement("p");
+    var priceTag = document.createTextNode(item.price)
+    price.appendChild("Price: "+priceTag+"$\n");
+    itemContainer.appendChild(price);
 
-//    var userId = document.createElement("p");
-//    var userID = document.createTextNode(item.Description)
-//    userId.appendChild("User ID: "+userID);
-//    itemContainer.appendChild(userId);
+    var userId = document.createElement("p");
+    var userID = document.createTextNode(item.userId)
+    userId.appendChild("User ID: "+userID);
+    itemContainer.appendChild(userId);
   }
   callback();
 }
