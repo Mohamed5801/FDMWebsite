@@ -17,9 +17,7 @@ function searchEnable() {
 async function loadItems(num) {
   var img = new itemPreview();
 
-  img.colour= await (fetch('http://127.0.0.1:5000/products')
-      .then(response => response.json())
-      .then(json => json[num].Colour));
+
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
@@ -31,11 +29,15 @@ async function loadItems(num) {
 
   img.price= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json[num].Price));
+        .then(json => console.log(json[num])));
 
   img.userId= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
         .then(json => json[num].User_ID));
+
+        img.colour= await (fetch('http://127.0.0.1:5000/products')
+            .then(response => response.json())
+            .then(json => json[num].Colour));
 
   return img;
 }
@@ -137,6 +139,21 @@ async function searchTerms(item, searchTerms, galNum) {
 }
 
 async function searchItems(terms, callback) {
+  document.getElementById("searchButton").disabled = true;
+  document.getElementById("gallery1").innerHTML = "";
+  document.getElementById("gallery2").innerHTML = "";
+  document.getElementById("gallery3").innerHTML = "";
+
+  var galNum=1;
+  for (var i=0;i<20;i++) {
+    var items = await loadItems(i);
+    galNum = searchTerms(items,terms,galNum);
+  }
+
+  callback();
+}
+
+async function colourCheck(isRed, callback) {
   document.getElementById("searchButton").disabled = true;
   document.getElementById("gallery1").innerHTML = "";
   document.getElementById("gallery2").innerHTML = "";
