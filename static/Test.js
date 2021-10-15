@@ -8,18 +8,17 @@ class itemPreview {
   }
 }
 
-window.onload=createGrid(searchEnable);
+createGrid(searchEnable);
+console.log("test");
 
 function searchEnable() {
   document.getElementById("searchButton").disabled = false;
 }
 
 async function loadItems(num) {
+  console.log("testload");
   var img = new itemPreview();
 
-  fetch('http://127.0.0.1:5000/products')
-        .then(response => response.json())
-        .then(json => console.log(json));
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
@@ -31,15 +30,15 @@ async function loadItems(num) {
 
   img.price= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json =>json[num].Price);
+        .then(json =>console.log(json.products[0]));
 
   img.userId= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
-        .then(json => json[num].User_ID));
+        .then(json => console.log(json[num].Name));
 
         img.colour= await (fetch('http://127.0.0.1:5000/products')
             .then(response => response.json())
-            .then(json => json[num].Colour));
+            .then(json => json[num].Colour);
 
              console.log(img);
 
@@ -47,6 +46,7 @@ async function loadItems(num) {
 }
 
 async function createGrid(callback) {
+  console.log("testGrid");
   var galNum=1;
   const gallery = "gallery";
   for (let i = 0;i < 20;i++) {
