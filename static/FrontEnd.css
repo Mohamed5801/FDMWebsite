@@ -22,3 +22,32 @@ h2 {
 .test {
 	color: red;
 }
+
+.block {
+  display: inline-block;
+  width: 100%;
+  border: none;
+  background-color: #2F7EF6;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  align: center;
+  margin: 5px;
+}
+
+.block:hover {
+  background-color: #1E58AD;
+  color: white;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
