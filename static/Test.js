@@ -13,7 +13,7 @@ async function getSize() {
         .then(response => response.json())
         .then(json =>  Object.keys( json['products']).length));
 }
-
+var jsonSize = getSize();
 createGrid(searchEnable);
 
 function searchEnable() {
@@ -23,10 +23,6 @@ function searchEnable() {
 async function loadItems(num) {
 
   var img = new itemPreview();
-
-
-
-
 
   img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
@@ -54,7 +50,7 @@ async function loadItems(num) {
 async function createGrid(callback) {
   var galNum=1;
   const gallery = "gallery";
-  for (let i = 0;i < getSize();i++) {
+  for (let i = 0;i < 20;i++) {
 
     var item = await loadItems(i);
     var src = document.getElementById(gallery.concat("" + galNum));
@@ -74,10 +70,6 @@ async function createGrid(callback) {
     var textTitle = document.createTextNode(temp0.concat("Name: " , item.name));
     title.appendChild(textTitle);
     itemContainer.appendChild(title);
-
-    //var img = document.createElement("img");
-  //  img.src = item.url;
-  //  itemContainer.appendChild(img);
 
     var colour = document.createElement("p");
     var text = document.createTextNode(temp1.concat("\nColour: ", item.colour , "\n"));
@@ -152,13 +144,14 @@ async function searchTerms(item, searchTerms, galNum) {
 }
 
 async function searchItems(terms, callback) {
+  jsonSize = getSize();
   document.getElementById("searchButton").disabled = true;
   document.getElementById("gallery1").innerHTML = "";
   document.getElementById("gallery2").innerHTML = "";
   document.getElementById("gallery3").innerHTML = "";
 
   var galNum=1;
-  for (var i=0;i<20;i++) {
+  for (var i=0;i<jsonSize;i++) {
     var items = await loadItems(i);
     galNum = searchTerms(items,terms,galNum);
   }
@@ -173,7 +166,7 @@ async function colourCheck(isRed, callback) {
   document.getElementById("gallery3").innerHTML = "";
 
   var galNum=1;
-  for (var i=0;i<getSize();i++) {
+  for (var i=0;i<jsonSize;i++) {
     var items = await loadItems(i);
     galNum = searchTerms(items,terms,galNum);
   }
