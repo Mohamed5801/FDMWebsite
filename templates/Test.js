@@ -17,23 +17,23 @@ function searchEnable() {
 async function loadItems(num) {
   var img = new itemPreview();
 
-  img.colour= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
+  img.colour= await (fetch('http://127.0.0.1:5000/products')
       .then(response => response.json())
       .then(json => json[num].Colour));
 
-  img.description= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
+  img.description= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
         .then(json => json[num].Description));
 
-  img.name= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
+  img.name= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
         .then(json => json[num].Name));
 
-  img.price= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
+  img.price= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
         .then(json => json[num].Price));
 
-  img.userId= await (fetch('https://buy-and-sell-98bac-default-rtdb.firebaseio.com/')
+  img.userId= await (fetch('http://127.0.0.1:5000/products')
         .then(response => response.json())
         .then(json => json[num].UserId));
 
