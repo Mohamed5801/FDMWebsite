@@ -14,7 +14,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:FDM_fcg3_2021@localhost/FullStackDev'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///FDM.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -200,11 +200,11 @@ def sell():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route("/load")
+@app.route("/new-scan")
 def load():
     return render_template("Upload.html")
 
-@app.route("/upload", methods=["POST", "GET"])
+@app.route("/new-scan", methods=["POST", "GET"])
 def upload():
     if 'file' not in request.files:
         flash('No file part')
@@ -216,8 +216,6 @@ def upload():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # print('upload_image filename: ' + filename)
-
         pic = Pic(id=len(Pic.query.all())+1, img="img", name=filename, mimetype="mimetype")
         db.session.add(pic)
         db.session.commit()

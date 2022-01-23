@@ -6,9 +6,15 @@ HTML body {
 }
 
 
-h2 {
-	font-size: 45px;
+h1 {
+	font-size: 100px;
 }
+
+h2 {
+	font-size: 100px;
+}
+
+
 .new-nav {
 	display: flex;
 	color: black;
@@ -27,7 +33,7 @@ h2 {
   display: inline-block;
   width: 100%;
   border: none;
-  background-color: #2F7EF6;
+  background-color: #f3a32b;
   color: white;
   padding: 14px 28px;
   font-size: 16px;
